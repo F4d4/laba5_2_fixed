@@ -1,0 +1,32 @@
+<PriorityQueue>
+    <item>
+        <name>Concert</name>
+        <coordinates>
+            <x>10</x>
+            <y>2.0</y>
+        </coordinates>
+        <price>10</price>
+        <discount>10</discount>
+        <ticketType>VIP</ticketType>
+        <event>
+            <name>WW1</name>
+            <minAge>1917</minAge>
+            <eventType>BASEBALL</eventType>
+        </event>
+    </item>
+    <item>
+        <name>Sports</name>
+        <coordinates>
+            <x>20</x>
+            <y>4.0</y>
+        </coordinates>
+        <price>20</price>
+        <discount>20</discount>
+        <ticketType>VIP</ticketType>
+        <event>
+            <name>WW2</name>
+            <minAge>1941</minAge>
+            <eventType>BASEBALL</eventType>
+        </event>
+    </item>
+</PriorityQueue>

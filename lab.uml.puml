@@ -1,0 +1,304 @@
+@startuml
+class net.commands.Add {
+- CollectionRuler collectionRuler
+- Console console
++ boolean apply(String[])
+}
+class net.commands.ExecuteScript {
+- Console console
++ boolean apply(String[])
+}
+class net.commands.Exit {
+- Console console
++ boolean apply(String[])
+}
+class net.tools.EventSerializer {
++ void serialize(Event,JsonGenerator,SerializerProvider)
+}
+class net.facility.Coordinates {
+- Integer x
+- Double y
++ String toString()
++ boolean validate()
++ int getX()
++ double getY()
++ boolean equals(Object)
++ int hashCode()
+}
+interface net.tools.Validatable {
++ boolean validate()
+}
+abstract class net.commands.Command {
+- String name
+- String description
++ String getName()
++ String getDescription()
++ String toString()
++ boolean equals(Object)
++ int hashCode()
+}
+class net.tools.Ask {
++ {static} Ticket askTicket(Console,long)
++ {static} Coordinates askCoordinates(Console)
++ {static} String askTicketName(Console)
++ {static} Long askPrice(Console)
++ {static} Integer askDiscount(Console)
++ {static} TicketType askTicketType(Console)
++ {static} Event askEvent(Console,long)
++ {static} String askEventName(Console)
++ {static} Long askMinAge(Console)
++ {static} EventType askEventType(Console)
+}
+class net.tools.Ask$AskBreak {
+}
+class net.rulers.CommandRuler {
+- Map<String,Command> commands
+- List<String> commandHistory
++ void register(String,Command)
++ Map<String,Command> getCommands()
++ List<String> getCommandHistory()
++ void addToHistory(String)
+}
+class net.commands.AddIfMin {
+- Console console
+- CollectionRuler collectionRuler
++ boolean apply(String[])
+- Long minPrice()
+}
+class net.tools.Runner {
+- Console console
+- CommandRuler commandRuler
+- List<String> scriptStack
+- int lengthRecursion
++ void interactiveMode()
++ ExitCode scriptMode(String)
+- ExitCode launchCommand(String[])
+}
+enum net.tools.ExitCode {
++  OK
++  ERROR
++  EXIT
+}
+class net.commands.UpdateById {
+- Console console
+- CollectionRuler collectionRuler
++ boolean apply(String[])
+}
+class net.commands.FilterGreaterThanPrice {
+- Console console
+- CollectionRuler collectionRuler
++ boolean apply(String[])
+- List<Ticket> filterByPrice(Long)
+}
+interface net.tools.Console {
+~ void println(Object)
+~ void print(Object)
+~ String readln()
+~ void printError(Object)
+~ void prompt()
+~ void printTable(Object,Object)
+~ boolean isCanReadln()
+~ void selectFileScanner(Scanner)
+~ void selectConsoleScanner()
+~ String getPrompt()
+}
+interface net.commands.Executable {
+~ boolean apply(String[])
+}
+class net.commands.RemoveById {
+- CollectionRuler collectionRuler
+- Console console
++ boolean apply(String[])
+}
+class net.Main {
++ {static} void main(String[])
+}
+abstract class net.tools.Artifact {
++ {abstract}long getId()
+}
+class net.commands.RemoveFirst {
+- CollectionRuler collectionRuler
+- Console console
++ boolean apply(String[])
+}
+class net.commands.Info {
+- Console console
+- CollectionRuler collectionRuler
++ boolean apply(String[])
+}
+class net.commands.History {
+- CommandRuler commandRuler
+- Console console
++ boolean apply(String[])
+}
+class net.commands.Save {
+- Console console
+- CollectionRuler collectionRuler
++ boolean apply(String[])
+}
+class net.rulers.CollectionRuler {
+- long currentId
+- Map<Long,Ticket> tickets
+- LocalDateTime lastInitTime
+- LocalDateTime lastSaveTime
+- Parser parser
+- PriorityQueue<Ticket> collection
++ LocalDateTime getLastInitTime()
++ LocalDateTime getLastSaveTime()
++ PriorityQueue<Ticket> getCollection()
++ Ticket byId(Long)
++ boolean isContain(Ticket)
++ long getFreeId()
++ void update()
++ boolean init()
++ void saveCollection()
++ boolean add(Ticket)
++ void remove(long,Ticket)
++ void removeAll()
++ void removefirst()
++ String toString()
+}
+enum net.facility.TicketType {
++  VIP
++  USUAL
++  BUDGETARY
++  CHEAP
+}
+class net.Exceptions.NotFoundException {
+}
+class net.commands.FilterStartsWIthName {
+- Console console
+- CollectionRuler collectionRuler
++ boolean apply(String[])
+- List<Ticket> filterByName(String)
+}
+class net.facility.Ticket {
+- long id
+- String name
+- Coordinates coordinates
+- java.time.LocalDateTime creationDate
+- long price
+- int discount
+- TicketType type
+- Event event
++ long getId()
++ String toString()
++ int compareTo(Artifact)
++ boolean validate()
++ long getEventMinage()
++ String getName()
++ Coordinates getCoordinates()
++ LocalDateTime getCreationDate()
++ long getPrice()
++ int getDiscount()
++ TicketType getTicketType()
++ Event getEvent()
++ void setId(long)
++ void setName(String)
++ void setCoordinates(Coordinates)
++ void setCreationDate(LocalDateTime)
++ void setPrice()
++ void setDiscount(int)
++ void setTicketType(String)
++ void setEvent(Event)
++ boolean equals(Object)
++ int hashCode()
++ void printFields()
+}
+class net.commands.PrintFieldAscendingEvent {
+- Console console
+- CollectionRuler collectionRuler
++ boolean apply(String[])
+- List<Long> filterByMinAge()
+}
+class net.commands.Help {
+- Console console
+- CommandRuler commandRuler
++ boolean apply(String[])
+}
+class net.commands.Show {
+- Console console
+- CollectionRuler collectionRuler
++ boolean apply(String[])
+}
+class net.commands.Clear {
+- CollectionRuler collectionRuler
+- Console console
++ boolean apply(String[])
+}
+class net.facility.Event {
+- long id
+- String name
+- long minAge
+- EventType eventType
++ String toString()
++ boolean validate()
++ long getId()
++ String getName()
++ long getMinAge()
++ EventType getEventType()
++ boolean equals(Object)
++ int hashCode()
+}
+enum net.facility.EventType {
++  BASEBALL
++  BASKETBALL
++  OPERA
+}
+class net.tools.MyConsole {
+- {static} String P
+- {static} Scanner fileScanner
+- {static} Scanner defScanner
++ void println(Object)
++ void print(Object)
++ String readln()
++ void printError(Object)
++ void prompt()
++ String getPrompt()
++ void printTable(Object,Object)
++ boolean isCanReadln()
++ void selectFileScanner(Scanner)
++ void selectConsoleScanner()
+}
+class net.tools.CoordinatesSerializer {
++ void serialize(Coordinates,JsonGenerator,SerializerProvider)
+}
+class net.tools.Parser {
+- String filename
+- Console console
+~ XmlMapper xmlMapper
++ void saveCollectionxml(PriorityQueue<Ticket>)
++ PriorityQueue<Ticket> loadCollection()
+}
+
+
+net.commands.Command <|-- net.commands.Add
+net.commands.Command <|-- net.commands.ExecuteScript
+net.commands.Command <|-- net.commands.Exit
+com.fasterxml.jackson.databind.JsonSerializer <|-- net.tools.EventSerializer
+net.tools.Validatable <|.. net.facility.Coordinates
+net.commands.Executable <|.. net.commands.Command
+net.tools.Ask +.. net.tools.Ask$AskBreak
+net.tools.Exception <|-- net.tools.Ask$AskBreak
+net.commands.Command <|-- net.commands.AddIfMin
+net.commands.Command <|-- net.commands.UpdateById
+net.commands.Command <|-- net.commands.FilterGreaterThanPrice
+net.commands.Command <|-- net.commands.RemoveById
+net.tools.Validatable <|.. net.tools.Artifact
+net.tools.Comparable <|.. net.tools.Artifact
+net.commands.Command <|-- net.commands.RemoveFirst
+net.commands.Command <|-- net.commands.Info
+net.commands.Command <|-- net.commands.History
+net.commands.Command <|-- net.commands.Save
+net.Exceptions.Exception <|-- net.Exceptions.NotFoundException
+net.commands.Command <|-- net.commands.FilterStartsWIthName
+net.tools.Validatable <|.. net.facility.Ticket
+net.tools.Artifact <|-- net.facility.Ticket
+net.commands.Command <|-- net.commands.PrintFieldAscendingEvent
+net.commands.Command <|-- net.commands.Help
+net.commands.Command <|-- net.commands.Show
+net.commands.Command <|-- net.commands.Clear
+net.tools.Validatable <|.. net.facility.Event
+net.tools.Console <|.. net.tools.MyConsole
+com.fasterxml.jackson.databind.JsonSerializer <|-- net.tools.CoordinatesSerializer
+@enduml
