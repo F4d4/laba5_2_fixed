@@ -8,9 +8,9 @@ import net.rulers.CommandRuler;
 public class Help extends Command {
     private final CommandRuler commandRuler;
 
-    public Help( CommandRuler commandManager) {
+    public Help( CommandRuler commandRuler) {
         super("help", "вывести справку по доступным командам");
-        this.commandRuler = commandManager;
+        this.commandRuler = commandRuler;
     }
     /**
      * метод выполняет команду

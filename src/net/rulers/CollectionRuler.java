@@ -127,8 +127,6 @@ public class CollectionRuler {
      * удаляет первый элемент коллекции
      */
     public void removefirst(){
-        var deletable= collection.peek();
-        long deletableID= deletable.getId();
         collection.poll();
     }
 
